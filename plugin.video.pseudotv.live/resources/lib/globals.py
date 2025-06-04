@@ -24,6 +24,7 @@ import codecs, random
 import uuid, base64, binascii, hashlib
 import time, datetime, calendar
 import heapq, requests, pyqrcode
+import zoneinfo
 import xml.sax.saxutils
 
 from six.moves             import urllib 
@@ -271,6 +272,10 @@ def strpTime(datestring, format=DTJSONFORMAT): #convert pvr infolabel datetime s
 def epochTime(timestamp, tz=True): #convert pvr json datetime string to datetime obj
     if tz: timestamp -= getTimeoffset()
     return datetime.datetime.fromtimestamp(timestamp)
+
+def epochTimeLocal(timestamp):
+    local_tz = zoneinfo.ZoneInfo("Europe/Warsaw")
+    return datetime.datetime.fromtimestamp(timestamp, tz=local_tz)
 
 def getTimeoffset():
     return (int((datetime.datetime.now() - datetime.datetime.utcnow()).days * 86400 + round((datetime.datetime.now() - datetime.datetime.utcnow()).seconds, -1)))
