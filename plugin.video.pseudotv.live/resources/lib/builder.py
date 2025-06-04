@@ -166,7 +166,7 @@ class Builder:
                             self.pName = citem['name']
                             self.runActions(RULES_ACTION_CHANNEL_START, citem, inherited=self)
                             
-                            if not preview and citem['id'] in clrIDS: __clrChannel({'id':clrIDS.pop(clrIDS.index(citem['id']))}) #clear channel m3u/xmltv
+                            #if not preview and citem['id'] in clrIDS: __clrChannel({'id':clrIDS.pop(clrIDS.index(citem['id']))}) #clear channel m3u/xmltv
                             stopTimes = dict(self.xmltv.loadStopTimes([citem], fallback=fallback)) #check last stop times
                             
                             if    preview:                                                                           self.pMSG = LANGUAGE(32236)                           #Preview
