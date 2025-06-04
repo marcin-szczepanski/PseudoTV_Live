@@ -60,16 +60,20 @@ class Background(xbmcgui.WindowXMLDialog):
             nowTitle  = (self.fitem.get('label')     or BUILTIN.getInfoLabel('Title','VideoPlayer'))
             nextTitle = (self.nitem.get('showlabel') or BUILTIN.getInfoLabel('NextTitle','VideoPlayer') or chname)
 
-            try: nextTime = epochTime(self.nitem['start']).strftime('%I:%M%p')
+            try: nextTime = epochTimeLocal(self.nitem['start']).strftime('%X')
             except Exception as e: 
                 self.log("__init__, nextTime failed! %s\nstart = %s"%(e,self.nitem.get('start')), xbmc.LOGERROR)
                 nextTime = BUILTIN.getInfoLabel('NextStartTime','VideoPlayer')
                 
-            onNow  = '%s on %s'%(nowTitle,chname) if chname not in validString(nowTitle) else nowTitle
-            onNext = '@ %s: %s'%(nextTime,nextTitle)
+            onNow  = '%s auf %s'%(nowTitle,chname) if chname not in validString(nowTitle) else nowTitle
+            onNext = 'um %s: %s'%(nextTime,nextTitle)
         
             window_w, window_h = WH # window_h, window_w = (self.getHeight(), self.getWidth())
-            onNextX, onNextY = abs(int(window_w // 9)), abs(int(window_h // 16) - window_h) - 356 #auto
+            #onNextX, onNextY = abs(int(window_w // 9)), abs(int(window_h // 16) - window_h) - 356 #auto
+
+            try:    onNextX, onNextY = eval(SETTINGS.getSetting("OnNext_Position_XY")) #user
+            except: onNextX, onNextY = abs(int(self.window_w // 9)), abs(int(self.window_h // 16) - self.window_h) - 356 #auto
+    
             
             self.getControl(40001).setPosition(onNextX, onNextY)
             self.getControl(40001).setVisibleCondition('[Player.Playing + !Window.IsVisible(fullscreeninfo) + Window.IsVisible(fullscreenvideo)]')
