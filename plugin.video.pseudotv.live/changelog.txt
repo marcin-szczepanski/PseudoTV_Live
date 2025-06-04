@@ -1,4 +1,9 @@
-v.0.6.2
+v0.6.1ms2
+- Changed transparency of channel bugs.
+- Changed UpNext as Artwork.
+- Fixed updating channels.
+
+v.0.6.1k
 - Optimized background logo tasks to prevent potential deadlocks.
 - Resolved repeated "Offline" server notifications.
 - Corrected an issue where channels failed to switch or load correctly.
