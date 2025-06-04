@@ -412,6 +412,20 @@ class XMLTVS:
         self.XMLTVDATA['programmes'] = [program for program in self.XMLTVDATA['programmes'] if program.get('channel') != citem.get('id')]
         self.log('clrProgrammes, removing channel %s programmes' % citem.get('id'))
         return True
+    
+    def clearOldProgrammes(self) -> bool:
+        programmes = self.XMLTVDATA['programmes'].copy()
+        n = datetime.datetime.now() - datetime.timedelta(hours=12)
+        newProgrammes = []
+        for program in programmes:
+            s = program['start']
+            s_datetime = datetime.datetime.strptime(s, DTFORMAT)
+            if s_datetime >= n:
+                newProgrammes.append(program)
+
+        self.XMLTVDATA['programmes'] = newProgrammes
+        self.log('clearOldProgrammes')
+        return True
 
 
     def delBroadcast(self, citem: dict) -> bool:# remove single channel and all programmes from XMLTVDATA
