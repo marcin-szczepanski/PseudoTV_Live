@@ -260,7 +260,7 @@ class Overlay():
                 elif self.resources.isMono(logo): self.channelBug.setColorDiffuse(self.channelBugColor)
                 self.channelBug.setImage(logo)
                 self.channelBug.setAnimations([('Conditional', 'effect=fade start=0 end=100 time=2000 delay=1000 condition=Control.IsVisible(%i) reversible=false'%(self.channelBug.getId())),
-                                               ('Conditional', 'effect=fade start=100 end=25 time=1000 delay=3000 condition=Control.IsVisible(%i) reversible=false'%(self.channelBug.getId()))])
+                                               ('Conditional', 'effect=fade start=100 end=90 time=1000 delay=3000 condition=Control.IsVisible(%i) reversible=false'%(self.channelBug.getId()))])
                 self.log('enableChannelBug, logo = %s, channelBugColor = %s, window = (%s,%s)'%(logo,self.channelBugColor,self.window_h, self.window_w))
         else: self.close()
         
@@ -332,13 +332,13 @@ class OnNext(xbmcgui.WindowXMLDialog):
                 nowTitle  = (self.fitem.get('label')     or BUILTIN.getInfoLabel('Title','VideoPlayer'))
                 nextTitle = (self.nitem.get('showlabel') or BUILTIN.getInfoLabel('NextTitle','VideoPlayer') or chname)
 
-                try: nextTime = epochTime(self.nitem['start']).strftime('%I:%M%p')
+                try: nextTime = epochTimeLocal(self.nitem['start']).strftime('%X')
                 except Exception as e: 
                     self.log("__init__, nextTime failed! %s\nstart = %s"%(e,self.nitem.get('start')), xbmc.LOGERROR)
                     nextTime = BUILTIN.getInfoLabel('NextStartTime','VideoPlayer')
 
-                onNow  = '%s on %s'%(nowTitle,chname) if chname not in validString(nowTitle) else nowTitle
-                onNext = '@ %s: %s'%(nextTime,nextTitle)
+                onNow  = '%s auf %s'%(nowTitle,chname) if chname not in validString(nowTitle) else nowTitle
+                onNext = 'um %s: %s'%(nextTime,nextTitle)
             
                 self.getControl(40001).setPosition(self.onNextX, self.onNextY)
                 self.getControl(40001).setVisibleCondition('[Player.Playing + !Window.IsVisible(fullscreeninfo) + Window.IsVisible(fullscreenvideo)]')
