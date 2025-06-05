@@ -417,7 +417,7 @@ class XMLTVS:
         programmes = self.XMLTVDATA['programmes'].copy()
         no = datetime.datetime.now()
         n = no - datetime.timedelta(hours=8)
-        m = no + datetime.timedelta(days=2)
+        m = no + datetime.timedelta(hours=73)
         newProgrammes = []
         for program in programmes:
             s = program['start']
