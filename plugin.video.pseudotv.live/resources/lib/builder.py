@@ -151,7 +151,7 @@ class Builder:
                     else:       self.pDialog = DIALOG.progressBGDialog()
 
                     if not preview:
-                        self.clearOldProgrammes()
+                        self.clearOldOrTooNewProgrammes()
                     
                     for idx, citem in enumerate(channels):
                         self.pCount = int(idx*100//len(channels))
@@ -594,9 +594,9 @@ class Builder:
         self.log('[%s] delChannelStation'%(citem['id']))
         return self.m3u.delStation(citem) & self.xmltv.delBroadcast(citem)
     
-    def clearOldProgrammes(self) -> bool:
-        self.log('clearOldProgrammes')
-        return self.xmltv.clearOldProgrammes()
+    def clearOldOrTooNewProgrammes(self) -> bool:
+        self.log('clearOldOrTooNewProgrammes')
+        return self.xmltv.clearOldOrTooNewProgrammes()
         
         
     def saveChannelLineups(self) -> bool:
