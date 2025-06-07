@@ -416,8 +416,8 @@ class XMLTVS:
     def clearOldOrTooNewProgrammes(self) -> bool:
         programmes = self.XMLTVDATA['programmes'].copy()
         no = datetime.datetime.now()
-        n = no - datetime.timedelta(hours=8)
-        m = no + datetime.timedelta(hours=73)
+        n = no - datetime.timedelta(hours=4)
+        m = no + datetime.timedelta(days=31)
         newProgrammes = []
         for program in programmes:
             s = program['start']
